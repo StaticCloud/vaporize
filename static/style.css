@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary: black;
+    --secondary: #f74843;
+    --plain-text: white;
+}
+
+* {    
+    margin: 0;
+    padding: 0;
+    
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+input,
+button {
+    outline: none;
+    border: none;
+}
+
+input {
+    padding: .5rem;
+    color: var(--plain-text);
+}
+
+h1, h2 {
+    color: var(--secondary);
+}
+
+p {
+    color: var(--plain-text);
+}
+
+main {
+    height: calc(100svh - 78px);
+}
+
+body {
+    background-color: var(--primary);
+}
+
+h1 {
+    font-weight: 700;
+}
+
+header {
+    margin: 1rem;
+}
+
+.search-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input.search-bar {
+    background-color: var(--primary);
+    border-bottom: var(--secondary) solid 3px;
+}
+
+button.search-button {
+    width: 30px;
+    height: 30px;
+    background: url(./search.svg) center no-repeat;
+}
