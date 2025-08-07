@@ -2,7 +2,7 @@
 
 :root {
     --primary: black;
-    --secondary: #f74843;
+    --secondary: rgb(247, 72, 67);
     --plain-text: white;
 }
 
@@ -66,5 +66,5 @@ input.search-bar {
 button.search-button {
     width: 30px;
     height: 30px;
-    background: url(./search.svg) center no-repeat;
+    background: url(./arrow-big-right.svg) center no-repeat;
 }
