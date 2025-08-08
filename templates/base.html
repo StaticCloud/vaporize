@@ -13,14 +13,24 @@
 		<main>
 			<div class="search-wrapper">
 				<div class="search-content">
-					<h1>Designs for Boisterous Completionists</h1>
-					<p></p>
-					<form hx-get="/templates/user/" hx-target=".search-content">
+					<form id="search-form" hx-get="/templates/user/" hx-target=".search-content">	
+						<h1>Designs for Boisterous Completionists</h1>
 						<input class="search-bar" placeholder="Steam User ID" type="text" name="user_id"/>
 						<button class="search-button"></button>
 					</form>
 				</div>
 			</div>
 		</main>
+		<template id="spinner-template">
+			<img src="../static/loader-circle.svg" class="animate-spin" id="spinner"></img>
+		</template>
 	</body>
+	<script>
+		document.body.addEventListener("htmx:beforeRequest", (e) => {
+			if (e.target.id == "search-form") {
+				const spinner = document.getElementById("spinner-template").content.cloneNode(true);
+				e.target.replaceWith(spinner)
+			}
+		})
+	</script>
 </html>
