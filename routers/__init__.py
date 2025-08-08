@@ -1,6 +1,6 @@
-from faspapi import APIRouter
-from templaterouter import template_router
+from fastapi import APIRouter
+from .userrouter import user_router
 
-template_router = APIRouter()
+router = APIRouter()
 
-template_router.include_router(template_router, prefix="/user")
+router.include_router(user_router, prefix="/user")

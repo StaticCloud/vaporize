@@ -15,8 +15,8 @@
 				<div class="search-content">
 					<h1>Designs for Boisterous Completionists</h1>
 					<p></p>
-					<form>
-						<input class="search-bar" placeholder="Steam User ID"/>
+					<form hx-get="/templates/user/" hx-target=".search-content">
+						<input class="search-bar" placeholder="Steam User ID" type="text" name="user_id"/>
 						<button class="search-button"></button>
 					</form>
 				</div>
