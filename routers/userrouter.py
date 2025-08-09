@@ -2,8 +2,11 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from steamapi import SteamAPI
 from core.template import templates
+from utils import BannerHelper
 
 user_router = APIRouter()
+
+banner_helper = BannerHelper()
 
 client = SteamAPI()
 
@@ -23,7 +26,15 @@ def get_completed_games(request: Request, user_id: int):
     try:
         # temp until body implementation
         games_ids = client.get_completed_game_ids(user_id)
+
+        games = banner_helper.get_box_art_urls(games_ids)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching games: {str(e)}")
 
-    return templates.TemplateResponse("partials/_user_data.html", { "request": request, "user": profile })
+    payload = {
+        "request": request,
+        "user": profile,
+        "games": games
+    }
+
+    return templates.TemplateResponse("partials/_studio.html", payload)

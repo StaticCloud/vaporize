@@ -1,0 +1,30 @@
+<div class="studio-wrapper">
+    <div class="game-selection">
+        {% for game in games %}
+            <div class="game-banner" style="background-image: url('{{ game }}');">
+                <input type="checkbox" value="{{ game }}">
+            </div>
+        {% endfor %} 
+    </div>
+    <div class="canvas">
+
+    </div>
+</div>
+<script>
+    const limit = 4;
+    const checkboxes = document.querySelectorAll('.game-banner input[type="checkbox"]')
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+            const count = document.querySelectorAll('.game-banner input[type="checkbox"]:checked').length;
+
+            if (count >= limit) {
+                checkboxes.forEach(cb => {
+                    if (!cb.checked) cb.disabled = true;
+                })
+            } else {
+                checkboxes.forEach(cb => cb.disabled = false);
+            }
+        })
+    })
+</script>
