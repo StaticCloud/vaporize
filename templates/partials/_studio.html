@@ -1,29 +1,52 @@
-<div class="studio-wrapper">
+<div class="game-selection-wrapper">
+    <div class="game-selection-header">
+        <h1>Select Four Game Banners</h1>
+        <p>Banners will appear on the design in the order they're selected.</p>
+    </div>
     <div class="game-selection">
         {% for game in games %}
-            <div class="game-banner" style="background-image: url('{{ game }}');">
+            <div class="game-banner" data-banner="{{ game }}" style="background-image: url('{{ game }}'), none;">
                 <input type="checkbox" value="{{ game }}">
             </div>
         {% endfor %} 
     </div>
-    <div class="canvas">
-
+    <div class="game-selection-footer">
+        <p id="total">0 / 4</p>
+        <button id="submit-banners" hx-post="/templates/design/" disabled="true">Next</button>
     </div>
 </div>
 <script>
+    document.querySelectorAll(".game-banner").forEach((banner) => {
+        fetch(banner.getAttribute("data-banner"), { method: "HEAD" }).then((res) => {
+            if (res.status === 404) {
+                banner.style.display = "none";
+            }
+        })
+    })
+
     const limit = 4;
     const checkboxes = document.querySelectorAll('.game-banner input[type="checkbox"]')
+    const total = document.querySelector("#total");
+    const submit = document.querySelector("#submit-banners");
+
+    const banners = []
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", () => {
             const count = document.querySelectorAll('.game-banner input[type="checkbox"]:checked').length;
 
+            total.textContent = `${count} / 4`
+
             if (count >= limit) {
                 checkboxes.forEach(cb => {
                     if (!cb.checked) cb.disabled = true;
                 })
+
+                submit.disabled = false;
             } else {
                 checkboxes.forEach(cb => cb.disabled = false);
+
+                submit.disabled = true;
             }
         })
     })

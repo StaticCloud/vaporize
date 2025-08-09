@@ -85,20 +85,26 @@ button.search-button {
     animation: spin 1s linear infinite;
 }
 
-.studio-wrapper {
-    display: flex;
+.game-selection-wrapper {
+    margin: 0 auto;
+    max-width: 1050px;
+}
+
+.game-selection-header {
+    margin: 2rem 0;
 }
 
 .game-selection {
-    flex: 1;
-    display: grid;
+    display: flex;
+    flex: 0 1;
     gap: 4px;
-    grid-template-columns: auto auto auto;
+    flex-wrap: wrap;
 }
 
 .game-banner {
-    width: 200px;
-    height: 300px;
+    width: 18%;
+    aspect-ratio: 2 / 3;
+    background-position: center;
     background-size: cover;
     border: 3px solid var(--primary);
 }
@@ -117,6 +123,19 @@ button.search-button {
     border: 3px solid var(--secondary);
 }
 
-.canvas { 
-    flex: 2;
+.game-selection-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+#submit-banners {
+    padding: .5rem 1rem;
+    background-color: var(--secondary);
+    color: var(--plain-text);
+}
+
+#submit-banners:disabled {
+    opacity: 0.5;
 }
