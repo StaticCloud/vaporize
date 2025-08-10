@@ -12,7 +12,7 @@
     </div>
     <div class="game-selection-footer">
         <p id="total">0 / 4</p>
-        <button id="submit-banners" hx-post="/templates/design/" disabled="true">Next</button>
+        <button id="submit-banners" hx-post="/templates/design/" hx-ext="json-enc" hx-vals='js:{ body: getBanners() }' disabled="true">Next</button>
     </div>
 </div>
 <script>
@@ -29,10 +29,20 @@
     const total = document.querySelector("#total");
     const submit = document.querySelector("#submit-banners");
 
-    const banners = []
+    let banners = [];
+
+    const getBanners = () => ({ banners });
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", () => {
+            const url = checkbox.getAttribute("value"); 
+
+            if (banners.includes(url)) {
+                banners = banners.filter(banner => banner !== url)
+            } else {
+                banners.push(url)
+            }
+
             const count = document.querySelectorAll('.game-banner input[type="checkbox"]:checked').length;
 
             total.textContent = `${count} / 4`
