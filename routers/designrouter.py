@@ -12,10 +12,12 @@ class Payload(BaseModel):
 @design_router.post("/", response_class=HTMLResponse)
 async def post_banner_design(request: Request, payload: Payload):
     body = json.loads(payload.body)
-    print(body['banners'])
+
+    banners = body['banners']
 
     payload = {
-        "request": request
+        "request": request,
+        "banners": banners
     }
 
     return templates.TemplateResponse("partials/_design.html", payload)

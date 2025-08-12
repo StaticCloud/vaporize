@@ -12,10 +12,11 @@
     </div>
     <div class="game-selection-footer">
         <p id="total">0 / 4</p>
-        <button id="submit-banners" hx-post="/templates/design/" hx-ext="json-enc" hx-vals='js:{ body: getBanners() }' disabled="true">Next</button>
+        <button id="submit-banners" hx-target=".game-selection-wrapper" hx-swap="outerHTML" hx-post="/templates/design/" hx-ext="json-enc" hx-vals='js:{ "body":getBanners() }' disabled="true">Next</button>
     </div>
 </div>
 <script>
+
     document.querySelectorAll(".game-banner").forEach((banner) => {
         fetch(banner.getAttribute("data-banner"), { method: "HEAD" }).then((res) => {
             if (res.status === 404) {
@@ -31,7 +32,7 @@
 
     let banners = [];
 
-    const getBanners = () => ({ banners });
+    const getBanners = () => JSON.stringify({ 'banners': banners });
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", () => {

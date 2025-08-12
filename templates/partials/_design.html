@@ -1,0 +1,74 @@
+<style>
+.design-footer {
+    display: flex;
+    align-items: center;
+}
+
+.design-footer h1 {
+    color: var(--secondary);
+}
+
+.design-banners {
+    flex: 1;
+    display: flex;
+    gap: 15px;
+}
+
+.game-banner-design {
+    flex: 1;
+    aspect-ratio: 2 / 3;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    border-bottom: 5px solid var(--secondary);
+    position: relative;
+}
+
+
+.ribbon {
+    position: absolute;
+    background-image: url(../../static/trophy.svg);
+    aspect-ratio: 1;
+    height: 30px;
+    background-position: center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    bottom: -10px;
+    right: -10px;
+    background-color: var(--primary);
+    border: 3px solid var(--secondary);
+    border-radius: 50%;
+}
+
+.design-wrapper {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.design {
+    display: flex;
+    flex: 780px 0;
+    flex-direction: column;
+    padding: 2rem;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+</style>
+<div class="design-wrapper">
+    <div class="design">
+        <div class="design-banners">
+            {% for banner in banners %}
+                <div style="background-image: url('{{ banner }}');" class="game-banner-design">
+                    <div class="ribbon"></div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="design-footer">
+            <h1>vaporize.gg</h1>
+        </div>
+    </div>
+</div>
+<script>
+</script>
