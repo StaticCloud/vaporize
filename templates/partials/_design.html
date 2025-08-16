@@ -158,10 +158,19 @@ form label {
     font-size: 1.4rem;
 }
 
+button {
+    background-color: var(--red);
+    color: white;
+    margin-top: 2rem;
+    width: 100%;
+    padding: .5rem 0;
+    border-radius: 2rem;
+}
+
 </style>
 <div class="design-wrapper">
     <aside>
-        <form onsubmit="download()">
+        <form>
             <label for="color">Color</label>
             <div class="radio-wrap red">
                 <input type="radio" value="red" name="color" checked="checked"/>
@@ -177,6 +186,8 @@ form label {
             <div class="checkbox-wrap">
                 <input type="checkbox" id="border-toggle" name="border" checked="checked">
             </div>
+
+            <button type="button" onclick="download()">Download</button>
         </form>
     </aside>
     <div class="design border red">
