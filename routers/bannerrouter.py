@@ -4,13 +4,13 @@ from steamapi import SteamAPI
 from core.template import templates
 from utils import BannerHelper
 
-user_router = APIRouter()
+banner_router = APIRouter()
 
 banner_helper = BannerHelper()
 
 client = SteamAPI()
 
-@user_router.get("/", response_class=HTMLResponse)
+@banner_router.get("/", response_class=HTMLResponse)
 def get_completed_games(request: Request, user_id: int):
     if not user_id:
         raise HTTPException(status_code=500, detail=f"Error fetching profile: {str(e)}")
@@ -37,4 +37,4 @@ def get_completed_games(request: Request, user_id: int):
         "games": games
     }
 
-    return templates.TemplateResponse("partials/_studio.html", payload)
+    return templates.TemplateResponse("partials/_banner-select.html", payload)

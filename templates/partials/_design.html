@@ -1,12 +1,15 @@
 <style>
+
+:root {
+    --red: #f74843;
+    --blue: #43a6f7;
+    --yellow: #f7eb43;
+}
+
 .design-footer {
     display: flex;
     margin-top: 1rem;
     align-items: center;
-}
-
-.design-footer h1 {
-    color: var(--secondary);
 }
 
 .design-banners {
@@ -52,13 +55,131 @@
     flex: 780px 0;
     flex-direction: column;
     padding: 2rem;
-    border: 2px solid white;
-    border-radius: 10px;
     background-color: var(--primary);
 }
+
+.border {
+    border: 2px solid black;
+}
+
+aside {
+    padding: 2rem;
+}
+
+.radio-wrap {
+    position: relative;
+    display: inline-flex;
+    width: 16px;
+    aspect-ratio: 1;
+}
+
+.checkbox-wrap {
+    position: absolute;
+    display: inline-block;
+    width: 16px;
+    aspect-ratio: 1;
+}
+
+.checkbox-wrap:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 10px;
+    aspect-ratio: 1;
+    background-color: var(--red);
+    border-radius: 50%;
+    border: 3px solid var(--red);
+}
+
+
+input[type="checkbox"] {
+    width: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    opacity: 0;
+}
+
+.radio-wrap::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 10px;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    border: 3px solid black;
+}
+
+.red, .red * {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.blue, .blue * {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.yellow, .yellow * {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.red::before {
+    border-color: var(--red);
+    background-color: var(--red);
+}
+
+.blue::before {
+    border-color: var(--blue);
+    background-color: var(--blue);
+}
+
+.yellow::before {
+    border-color: var(--yellow);
+    background-color: var(--yellow);
+}
+
+.radio-wrap:has(input[type="radio"]:checked)::before,
+.checkbox-wrap:has(input[type="checkbox"]:checked)::before{
+    border-color: white;
+}
+
+input[type="radio"] {
+    width: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    opacity: 0;
+}
+
+form label {
+    display: block;
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
 </style>
 <div class="design-wrapper">
-    <div class="design">
+    <aside>
+        <form onsubmit="download()">
+            <label for="color">Color</label>
+            <div class="radio-wrap red">
+                <input type="radio" value="red" name="color" checked="checked"/>
+            </div>
+            <div class="radio-wrap blue">
+                <input type="radio" value="blue" name="color"/>
+            </div>
+            <div class="radio-wrap yellow">
+                <input type="radio" value="yellow" name="color"/>
+            </div>
+
+            <label for="border">Border</label>
+            <div class="checkbox-wrap">
+                <input type="checkbox" id="border-toggle" name="border" checked="checked">
+            </div>
+        </form>
+    </aside>
+    <div class="design border red">
         <div class="design-banners">
             {% for banner in banners %}
                 <div style="background-image: url('{{ banner }}');" class="game-banner-design">
@@ -74,10 +195,37 @@
 <script>
     const design = document.querySelector(".design");
 
-    html2canvas(design, { useCORS: true }).then(canvas => {
-        const link = document.createElement("a");
-        link.href = canvas.toDataURL("image/png");
-        link.download = "design.png";
-        link.click();
+    const colorRadios = document.querySelectorAll("input[name='color']")
+
+    let color = "red"
+
+    const borderToggle = document.querySelector("#border-toggle")
+
+    colorRadios.forEach(radio => {
+        radio.addEventListener("change", () => {
+            
+            if (design.classList.contains(color)) {
+                design.classList.remove(color)
+                color = radio.getAttribute("value")
+                design.classList.add(color)
+            }
+        })
     })
+
+    borderToggle.addEventListener("change", () => {
+        if (borderToggle.checked) {
+            design.classList.add("border")
+        } else {
+            design.classList.remove("border")
+        }
+    })
+
+    const download = () => {
+        html2canvas(design, { useCORS: true }).then(canvas => {
+            const link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "design.png";
+            link.click();
+        })
+    }
 </script>
